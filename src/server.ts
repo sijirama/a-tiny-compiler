@@ -7,7 +7,7 @@ dotenv.config()
 const PORT = process.env.PORT || 3000
 
 //NOTE: import utilities
-import {connectDB()} from "./config/dbConnect.ts"
+import {connectDB} from "./config/dbConnect"
 connectDB()
 
 const app = Express()
