@@ -4,6 +4,10 @@ import mongoose from "mongoose"
 import morgan from "morgan"
 import { engine } from 'express-handlebars';
 
+//NOTE: import routes
+import {router as IndexRouter} from "./routes/index"
+
+
 //NOTE: dotenv config
 dotenv.config()
 const PORT = process.env.PORT || 3000
@@ -18,11 +22,13 @@ const app = Express()
 app.use(morgan('dev'))
 
 //NOTE: View engine / handlebars
-app.engine(".hbs", engine({defaultLayout:"main", extname:".hbs" }))
-app.set("view engine" , ".hbs")
-app.set("views" , "/views")
+app.engine('.hbs', engine({defaultLayout:"main" , extname: '.hbs'}));
+app.set('view engine', '.hbs');
+app.set('views', './src/views');
 
 
+//NOTE: routes 
+app.use("/" , IndexRouter)
 
 
 

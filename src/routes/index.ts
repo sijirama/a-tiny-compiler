@@ -8,14 +8,16 @@ const router = Express.Router()
 //NOTE: Login / landing page
 //NOTE: ROUTE
 router.get("/" , (req , res) => {
-    res.send("Login")
+    console.log("////////////////////////////")
+    res.render("login")
 })
 
 
 //NOTE: Dashboard page
 //NOTE: ROUTE
 router.get("/dashboard" , (req , res) => {
-    res.send("Dashboard")
+    console.log("////////////////////////////")
+    res.render("dashboard")
 })
 
 
