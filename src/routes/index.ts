@@ -9,7 +9,9 @@ const router = Express.Router()
 //NOTE: ROUTE
 router.get("/" , (req , res) => {
     console.log("////////////////////////////")
-    res.render("login")
+    res.render("login" , {
+        layout:"login"
+    })
 })
 
 
@@ -19,8 +21,5 @@ router.get("/dashboard" , (req , res) => {
     console.log("////////////////////////////")
     res.render("dashboard")
 })
-
-
-
 
 export { router }
