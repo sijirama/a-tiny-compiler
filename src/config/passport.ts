@@ -14,11 +14,15 @@ export function GoogleAuth (){
         console.log(profile)
     }))
 
-    passport.serializeUser(function (user, done) {
+    passport.serializeUser(function (user:any, done) {
         done(null , user.id)
     })
 
-    
+    passport.deserializeUser(function (id, done) {
+        UserModel.findById(id , function( error:any, user:any){
+            done(error, user)
+        })
+    })    
 }
 
 
