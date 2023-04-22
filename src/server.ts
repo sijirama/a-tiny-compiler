@@ -18,7 +18,7 @@ const app = Express()
 app.use(morgan('dev'))
 
 //NOTE: View engine
-app.engine(".hbs" , exphbs({extname:".hbs"}) )
+app.engine(".hbs", exphbs({defaultLayout:"main", extname:".hbs" }))
 app.set("view engine" , ".hbs")
 
 
