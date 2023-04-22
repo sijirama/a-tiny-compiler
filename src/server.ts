@@ -10,6 +10,7 @@ dotenv.config()
 
 //NOTE: import routes
 import {router as IndexRouter} from "./routes/index"
+import {router as AuthRouter} from "./routes/auth"
 
 //HACK: define constants
 const PORT = process.env.PORT || 3000
@@ -44,6 +45,7 @@ app.use(Express.static(staticFiles))
 
 //NOTE: routes 
 app.use("/" , IndexRouter)
+app.use("/auth" , AuthRouter)
 
 
 

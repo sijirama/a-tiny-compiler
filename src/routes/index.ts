@@ -1,9 +1,6 @@
-
 import * as Express from "express"
 
-
 const router = Express.Router()
-
 
 //NOTE: Login / landing page
 //NOTE: ROUTE
