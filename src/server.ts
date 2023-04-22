@@ -28,7 +28,7 @@ app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: String(expressSessionSecret) ,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   //cookie: { secure: true }
 }))
 app.use(passport.initialize())
