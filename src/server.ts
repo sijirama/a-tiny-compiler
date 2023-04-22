@@ -1,6 +1,8 @@
 import Express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
+import morgan from "morgan"
+const exphbs = require("express-handlebars")
 
 //NOTE: dotenv config
 dotenv.config()
@@ -12,9 +14,18 @@ connectDB()
 
 const app = Express()
 
+//NOTE: middleware
+app.use(morgan('dev'))
+
+//NOTE: View engine
+app.engine(".hbs" , exphbs({extname:".hbs"}) )
+app.set("view engine" , ".hbs")
 
 
-mongoose.connection.once("connection" , () => {
+
+
+
+mongoose.connection.once("open" , () => {
     app.listen(PORT , () => {
        console.clear()
         console.log("Connected to database")
