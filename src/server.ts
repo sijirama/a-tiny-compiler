@@ -6,7 +6,9 @@ import morgan from "morgan"
 import passport from "passport"
 import session from "express-session"
 import { engine } from 'express-handlebars';
+import { GoogleAuth } from "./config/passport"
 dotenv.config()
+GoogleAuth()
 
 //NOTE: import routes
 import {router as IndexRouter} from "./routes/index"
