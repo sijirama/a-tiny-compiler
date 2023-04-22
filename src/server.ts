@@ -2,7 +2,7 @@ import Express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import morgan from "morgan"
-const exphbs = require("express-handlebars")
+import { engine } from 'express-handlebars';
 
 //NOTE: dotenv config
 dotenv.config()
@@ -17,9 +17,10 @@ const app = Express()
 //NOTE: middleware
 app.use(morgan('dev'))
 
-//NOTE: View engine
-app.engine(".hbs", exphbs({defaultLayout:"main", extname:".hbs" }))
+//NOTE: View engine / handlebars
+app.engine(".hbs", engine({defaultLayout:"main", extname:".hbs" }))
 app.set("view engine" , ".hbs")
+app.set("views" , "/views")
 
 
 
