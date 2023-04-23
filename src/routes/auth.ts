@@ -18,9 +18,13 @@ router.get("/google/callback" , passport.authenticate("google" , {failureRedirec
 
 //NOTE: Logout 
 //NOTE: ROUTE: GET /auth/Logout
-router.get("/logout" , (req, res) => {
-    (req as any).logout()
-    res.redirect("/")
-})
+router.get('/logout', function(req:Express.Request, res:Express.Response, next:Express.NextFunction) {
+  req.logout(function(err) {
+    if (err) { 
+      return next(err); 
+    }
+    res.redirect('/');
+  });
+});
 
 export { router }
