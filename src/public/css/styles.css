@@ -1,3 +1,11 @@
+* { 
+	box-sizing: border-box;
+}
+
+html{
+    min-height: 100%;   
+}
+
 body{
     background: linear-gradient(-45deg, #96450D, #3E0C15, #2F3229, #042D29);
     background: linear-gradient(-45deg, #221e19, #895740, #736756, #37332a);
@@ -5,9 +13,13 @@ body{
     animation: gradient 15s ease infinite;
     background-size: cover;
     background-size: 400% 400%;
-    height: 100%;
+    min-height: 100%;
 }
 
+.header{
+    font-weight: bold;
+    font-family: 'Abril Fatface', cursive;
+}
 
 p{
     margin: 0.6rem 0 !important ;
