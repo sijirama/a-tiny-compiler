@@ -24,8 +24,8 @@ export function editIcon (storyUser:UserDocument , loggedUser:UserDocument , sto
     console.log(storyUser , "===========================>")
     if(storyUser._id.toString() == loggedUser._id.toString()){
         if(floating){
-            return ` <a href="/stories/edit/${storyId}" class="btn-floating halfway-fab black">
-                <i class="fas fa-edit fa-small"></i>
+            return ` <a href="/stories/edit/${storyId}" class="btn-floating halfway-fab white">
+                <i class="editIcon fas fa-edit fa-small"></i>
             </a>`
         }else{
             return `<a href="/stories/edit/${storyId}">

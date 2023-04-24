@@ -33,6 +33,17 @@ nav{
     -webkit-backdrop-filter: blur(7.7px);
 }
 
+.card{
+    padding: 0.7rem 1.2rem;
+    color: white;
+    background: black;
+}
+
+.card-image > a > i{
+    color: black;
+}
+
+
 
 p{
     margin: 0.6rem 0 !important ;
