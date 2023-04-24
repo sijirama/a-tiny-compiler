@@ -15,10 +15,17 @@ router.get("/" , EnsureGuest ,  (req , res) => {
 
 //NOTE: Dashboard page
 //NOTE: ROUTE
-router.get("/dashboard" , EnsureAuth ,  (req:any , res) => {
-    res.render("dashboard" , {
-        name : req.user.firstName  ,
-    })
+router.get("/dashboard" , EnsureAuth , async (req:any , res) => {
+    try {
+        const stories = StoryModel.find({user : req.user.id}).lean()
+        res.render("dashboard" , {
+            name : req.user.firstName,
+            stories
+        })
+    } catch (error:any) {
+       console.log(error.message) 
+       res.render("error/500")
+    }
 })
 
 export { router }
