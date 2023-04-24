@@ -5,6 +5,7 @@ import mongoose from "mongoose"
 import morgan from "morgan"
 import passport from "passport"
 import session from "express-session"
+import MongoStore from "connect-mongo"
 import { engine } from 'express-handlebars';
 import { GoogleAuth } from "./config/passport"
 dotenv.config()
@@ -32,7 +33,9 @@ app.use(session({
   secret: String(expressSessionSecret) ,
   resave: false,
   saveUninitialized: false,
-  //cookie: { secure: true }
+  store: MongoStore.create({
+      mongoUrl:process.env.MONGO_URI
+  })
 }))
 app.use(passport.initialize())
 app.use(passport.session())

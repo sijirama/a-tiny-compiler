@@ -11,7 +11,7 @@ export function EnsureAuth (req:Request , res:Response , next:NextFunction){
 
 export function EnsureGuest (req:Request , res:Response , next:NextFunction){
     if(req.isAuthenticated()){
-        res.redirect("/Documents and Settings")
+        res.redirect("/dashboard")
     }else{
         return next()
     }
