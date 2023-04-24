@@ -6,13 +6,21 @@ import morgan from "morgan"
 import passport from "passport"
 import session from "express-session"
 import MongoStore from "connect-mongo"
+import methodOverride from "method-override"
 import { engine } from 'express-handlebars';
 import { GoogleAuth } from "./config/passport"
 dotenv.config()
 GoogleAuth()
 
+
 //NOTE: Helpers
-import { formatDate , truncate , stripTags , editIcon } from "./helpers/hbs"
+import {
+    formatDate,
+    truncate,
+    stripTags,
+    editIcon,
+    selectTag,
+} from "./helpers/hbs"
 
 //NOTE: import routes
 import {router as IndexRouter} from "./routes/index"
@@ -46,6 +54,16 @@ app.use(passport.session())
 app.use(Express.urlencoded({extended:false}))
 app.use(Express.json())
 
+//NOTE: Method overriding
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    let method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
+
 //NOTE: gloval var
 app.use((req ,res , next) => {
     res.locals.user = req.user || null
@@ -54,7 +72,13 @@ app.use((req ,res , next) => {
 
 
 //NOTE: View engine / handlebars
-app.engine('.hbs', engine({defaultLayout:"main" ,helpers :{formatDate , truncate , stripTags , editIcon} ,extname: '.hbs'}));
+app.engine('.hbs', engine({defaultLayout:"main" ,helpers :{
+    formatDate,
+    truncate,
+    stripTags,
+    editIcon,
+    selectTag,
+} ,extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', './src/views');
 
@@ -64,7 +88,7 @@ app.use(Express.static(staticFiles))
 //NOTE: routes 
 app.use("/" , IndexRouter)
 app.use("/auth" , AuthRouter)
-app.use("/stories" , StoryRouter)
+app.use("/stories", StoryRouter)
 
 
 

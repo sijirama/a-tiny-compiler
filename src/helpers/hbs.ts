@@ -21,7 +21,6 @@ export function stripTags (input:string){
 }
 
 export function editIcon (storyUser:UserDocument , loggedUser:UserDocument , storyId:string , floating = true){
-    console.log(storyUser , "===========================>")
     if(storyUser._id.toString() == loggedUser._id.toString()){
         if(floating){
             return ` <a href="/stories/edit/${storyId}" class="btn-floating halfway-fab white">
@@ -35,4 +34,20 @@ export function editIcon (storyUser:UserDocument , loggedUser:UserDocument , sto
     }else{
         return ""
     }
+}
+
+
+export function selectTag (selected:any, options:any):string{
+    console.log(selected)
+    return options
+        // @ts-ignore
+        .fn(this)
+        .replace(
+            new RegExp(' value="' + selected + '"'),
+            '$& selected ="selected"'
+        )
+        .replace(
+            new RegExp('>' + selected + '</option>'),
+            ' selected="selected"$&'
+        )
 }
