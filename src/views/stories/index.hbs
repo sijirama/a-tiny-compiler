@@ -1,0 +1,32 @@
+<h5 class="header" >Stories</h5>
+<h4 class="subheader">Welcome {{name}}</h4>
+
+<div class="row">
+    {{#each stories}}
+        <div class="col s12 m4">
+            <div class="card" >
+                <div class="card-image">
+
+                </div>
+                <div class="card-center center-align">
+                    <h5>{{title}}</h5>
+                    <p>{{body}}</p>
+                    <br>
+                    <div class="chip">
+                        <img src="{{user.image}}" alt="" />
+                        <a href="/stories/user/{{user._id}}">{{user.displayName}}</a>
+                    </div>
+                </div>
+                <div class="card-action center-align">
+                    <a href="/stories/{{_id}}" class="btn black">Read More</a>    
+                </div>
+            </div>
+        </div>
+
+
+    {{else}}        
+        <h6>You have no stories told yet.</h6>
+    {{/each}}
+
+</div>
+

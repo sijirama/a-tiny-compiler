@@ -11,6 +11,9 @@ import { GoogleAuth } from "./config/passport"
 dotenv.config()
 GoogleAuth()
 
+//NOTE: Helpers
+import { formatDate } from "./helpers/hbs"
+
 //NOTE: import routes
 import {router as IndexRouter} from "./routes/index"
 import {router as AuthRouter} from "./routes/auth"
@@ -43,8 +46,9 @@ app.use(passport.session())
 app.use(Express.urlencoded({extended:false}))
 app.use(Express.json())
 
+
 //NOTE: View engine / handlebars
-app.engine('.hbs', engine({defaultLayout:"main" , extname: '.hbs'}));
+app.engine('.hbs', engine({defaultLayout:"main" ,helpers :{formatDate} ,extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', './src/views');
 

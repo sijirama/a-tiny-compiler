@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import UserModel from "./User"
 
 export interface StoryDocument extends mongoose.Document{
     googleId: string,
@@ -26,7 +27,7 @@ const StorySchema = new mongoose.Schema({
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"UserModel"
+        ref:UserModel
     },
     createdAt:{
         type:Date,
