@@ -1,5 +1,6 @@
 import * as Express from "express"
 import { EnsureAuth , EnsureGuest } from "../middleware/auth"
+import StoryModel from "../model/Story"
 
 const router = Express.Router()
 
