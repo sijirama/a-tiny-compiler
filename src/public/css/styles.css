@@ -27,10 +27,6 @@ nav{
     -webkit-backdrop-filter: blur(7.7px);
 }
 
-.header{
-    font-weight: bold;
-    font-family: 'Abril Fatface', cursive;
-}
 
 p{
     margin: 0.6rem 0 !important ;
@@ -57,7 +53,16 @@ p{
 
 
 
+/*NOTE: typography styles*/
+.header{
+    font-weight: bold;
+    font-family: 'Abril Fatface', cursive;
+}
 
+.subheader{
+    font-weight: 500;
+    font-family: 'Pathway Extreme', sans-serif;
+}
 
 
 
