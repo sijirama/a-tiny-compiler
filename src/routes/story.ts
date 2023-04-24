@@ -1,5 +1,6 @@
 import * as Express from "express"
-import { EnsureAuth, EnsureGuest } from "../middleware/auth"
+import { EnsureAuth, } from "../middleware/auth"
+import StoryModel from "../model/Story"
 
 const router = Express.Router()
 
@@ -13,10 +14,15 @@ router.get("/add" ,EnsureAuth,  (req, res) => {
 
 //NOTE: Add story 
 //NOTE: ROUTE: POST /stories/
-router.post("/" ,EnsureAuth ,  (req, res) => {
+router.post("/" ,EnsureAuth ,  async (req, res) => {
     try{
+        req.body.user = (req as any).user.id
         console.log(req.body)
-        res.end()
+        const story = await StoryModel.create(req.body)
+        if(story){
+            console.log(story)
+            res.redirect("/dashboard")
+        }
     }catch(error){
         console.log(error)
         res.render("error/500")

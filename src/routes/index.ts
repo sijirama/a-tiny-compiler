@@ -18,7 +18,9 @@ router.get("/" , EnsureGuest ,  (req , res) => {
 router.get("/dashboard" , EnsureAuth , async (req:any , res) => {
     console.log("hello")
     try {
-        const stories = await StoryModel.find({user : req.user.id}).lean()
+        const stories = await StoryModel.find({user:req.user.id}).lean()
+        console.log(req.user.id , "==========User id")
+        console.log(stories  )
         res.render("dashboard" , {
             name : req.user.firstName,
             stories
