@@ -119,6 +119,18 @@ router.delete("/:id" , EnsureAuth, async (req:any, res) => {
 })
 
 
+//NOTE: Show User 
+//NOTE: ROUTE: GET /story/add
+router.get("/user/:id" ,EnsureAuth, async (req, res) => {
+    const userId = req.params.id
+
+    try {
+       const stories = await StoryModel.find({user:userId , status:"public"}).populate("user").lean().exec()
+       console.log(stories)
+    } catch (error) {
+        
+    }
+})
 
 
 

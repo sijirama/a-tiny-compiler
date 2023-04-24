@@ -47,6 +47,10 @@ nav{
     font-size: 19px !important;
 }
 
+.img-small{
+    width:150px
+}
+
 
 p{
     margin: 0.6rem 0 !important ;
