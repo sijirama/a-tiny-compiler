@@ -33,7 +33,6 @@ router.get("/" ,EnsureAuth, async (req, res) => {
     console.log("hitted")
    try {
         const stories = await StoryModel.find({ status:"public" }).populate("user").sort({ createdAt : "desc" }).lean().exec()
-        console.log(stories)
         res.render("stories/index",{
             stories
         })
