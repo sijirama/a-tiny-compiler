@@ -50,7 +50,6 @@ p{
 }
 
 .divider{
-    margin: 0.9rem 0;
 }
 
 .googlelogin{
@@ -64,7 +63,13 @@ p{
     text-align: center;
 }
 
+.chip{
+    margin-bottom: 1rem 0;
+}
 
+.addbutton > a{
+    border: 2px solid white;
+}
 
 
 
@@ -90,8 +95,16 @@ p{
     border-bottom: black 2px solid;
 }
 
+.story-title{
+    font-weight: bold;
+    font-family: 'Pathway Extreme', sans-serif;
+}
 
-
+.CTA{ 
+    font-size: 0.9rem;
+    font-weight: lighter;
+    font-family: 'Pathway Extreme', sans-serif;
+}
 
 
 
