@@ -6,7 +6,6 @@ const router = Express.Router()
 //NOTE: Login / landing page
 //NOTE: ROUTE
 router.get("/" , EnsureGuest ,  (req , res) => {
-    console.log("////////////////////////////")
     res.render("login" , {
         layout:"login"
     })
@@ -15,9 +14,10 @@ router.get("/" , EnsureGuest ,  (req , res) => {
 
 //NOTE: Dashboard page
 //NOTE: ROUTE
-router.get("/dashboard" , EnsureAuth ,  (req , res) => {
-    console.log("////////////////////////////")
-    res.render("dashboard")
+router.get("/dashboard" , EnsureAuth ,  (req:any , res) => {
+    res.render("dashboard" , {
+        name : req.user.firstName  ,
+    })
 })
 
 export { router }
