@@ -14,6 +14,7 @@ GoogleAuth()
 //NOTE: import routes
 import {router as IndexRouter} from "./routes/index"
 import {router as AuthRouter} from "./routes/auth"
+import {router as StoryRouter} from "./routes/story"
 
 //HACK: define constants
 const PORT = process.env.PORT || 3000
@@ -51,6 +52,7 @@ app.use(Express.static(staticFiles))
 //NOTE: routes 
 app.use("/" , IndexRouter)
 app.use("/auth" , AuthRouter)
+app.use("/stories" , StoryRouter)
 
 
 
