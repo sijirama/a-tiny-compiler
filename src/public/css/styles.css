@@ -105,6 +105,7 @@ p{
 }
 
 .subheader{
+    padding: 0 1rem;
     font-weight: 500;
     font-family: 'Pathway Extreme', sans-serif;
 }
@@ -129,8 +130,20 @@ p{
     font-family: 'Pathway Extreme', sans-serif;
 }
 
+.userCard{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding:1rem 1rem ;
+    margin:1rem 1rem ;
+    background: black;
+    color: white;
+}
 
-
+.userheader{
+    font-family: 'Pathway Extreme', sans-serif;
+    font-weight: bold;
+}
 
 
 

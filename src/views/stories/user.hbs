@@ -1,0 +1,38 @@
+<div class="card-content userCard ">
+    <img src="{{user.image}}" class="circle responsive-img ">
+    <div>
+        <h5 class="userheader" >{{user.firstName}}</h5>
+        <h5 class="userheader" >{{user.lastName}}</h5>
+    </div>
+</div>
+<h4 class="subheader">{{user.firstName}} has {{stories.length}} stories to share.</h4>
+
+<div class="row">
+    {{#each stories}}
+        <div class="col s12 m4">
+            <div class="card" >
+                <div class="card-image">
+                    {{{editIcon user ../user _id }}}
+                </div>
+                <div class="card-center center-align">
+                    <h5 class="story-title">{{title}}</h5>
+                    <p>{{ stripTags (truncate body 100)}}</p>
+                    <br>
+                    <div class="chip">
+                        <img src="{{user.image}}" alt="" />
+                        <a href="/stories/user/{{user._id}}">{{user.displayName}}</a>
+                    </div>
+                </div>
+                <div class="card-action center-align">
+                    <a href="/stories/{{_id}}" class="btn black CTA">Read More</a>    
+                </div>
+            </div>
+        </div>
+
+
+    {{else}}        
+        <h6>You have no stories told yet.</h6>
+    {{/each}}
+
+</div>
+

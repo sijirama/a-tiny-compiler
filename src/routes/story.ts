@@ -125,10 +125,17 @@ router.get("/user/:id" ,EnsureAuth, async (req, res) => {
     const userId = req.params.id
 
     try {
+        const user = await UserModel.findById(userId).lean().exec()
        const stories = await StoryModel.find({user:userId , status:"public"}).populate("user").lean().exec()
        console.log(stories)
+       console.log("////////////////////////////")
+       console.log(user)
+       res.render('stories/user' , {
+           stories,
+           user
+       })
     } catch (error) {
-        
+       res.render("error/500") 
     }
 })
 
