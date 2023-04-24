@@ -40,6 +40,8 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(Express.urlencoded({extended:false}))
+app.use(Express.json())
 
 //NOTE: View engine / handlebars
 app.engine('.hbs', engine({defaultLayout:"main" , extname: '.hbs'}));
