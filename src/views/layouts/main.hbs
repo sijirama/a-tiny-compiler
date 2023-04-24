@@ -29,7 +29,21 @@
         M.FormSelect.init(document.querySelector("#status"));
 
         CKEDITOR.replace('body' , {
+                //uiColor: '#000000',
+                font_styles:{
+                        styles:         { 'color': '#(FFFFFF)' },
+                    }
             })
+        
+        CKEDITOR.on('instanceReady', function(e) {
+            // First time
+            //e.editor.document.getBody().setStyle('background-color', 'rgba(0, 0, 0 , 0.8)');
+            e.editor.document.getBody().setStyle('opacity', '0.8');
+            // in case the user switches to source and back
+            e.editor.on('contentDom', function() {
+                //e.editor.document.getBody().setStyle('background-color', 'blue');
+            });
+        });
     </script>
 </body>
 </html>

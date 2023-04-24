@@ -20,6 +20,7 @@ nav{
     background-color: black;
 }
 
+
 .nav{
     background: rgba(255, 255, 255, 0.27);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -64,11 +65,14 @@ p{
     font-family: 'Pathway Extreme', sans-serif;
 }
 
+.input-field > label {
+    color: black;
+    font-weight: bold;
+}
 
-
-
-
-
+.input-field > input{
+    border-bottom: black 2px solid;
+}
 
 
 
