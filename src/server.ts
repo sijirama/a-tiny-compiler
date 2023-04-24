@@ -12,7 +12,7 @@ dotenv.config()
 GoogleAuth()
 
 //NOTE: Helpers
-import { formatDate , truncate , stripTags } from "./helpers/hbs"
+import { formatDate , truncate , stripTags , editIcon } from "./helpers/hbs"
 
 //NOTE: import routes
 import {router as IndexRouter} from "./routes/index"
@@ -46,9 +46,15 @@ app.use(passport.session())
 app.use(Express.urlencoded({extended:false}))
 app.use(Express.json())
 
+//NOTE: gloval var
+app.use((req ,res , next) => {
+    res.locals.user = req.user || null
+    next()
+})
+
 
 //NOTE: View engine / handlebars
-app.engine('.hbs', engine({defaultLayout:"main" ,helpers :{formatDate , truncate , stripTags} ,extname: '.hbs'}));
+app.engine('.hbs', engine({defaultLayout:"main" ,helpers :{formatDate , truncate , stripTags , editIcon} ,extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', './src/views');
 

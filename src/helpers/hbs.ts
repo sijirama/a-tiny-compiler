@@ -21,6 +21,7 @@ export function stripTags (input:string){
 }
 
 export function editIcon (storyUser:UserDocument , loggedUser:UserDocument , storyId:string , floating = true){
+    console.log(storyUser , "===========================>")
     if(storyUser._id.toString() == loggedUser._id.toString()){
         if(floating){
             return ` <a href="/stories/edit/${storyId}" class="btn-floating halfway-fab black">
