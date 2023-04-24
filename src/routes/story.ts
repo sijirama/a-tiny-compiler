@@ -5,6 +5,28 @@ import UserModel from "../model/User"
 
 const router = Express.Router()
 
+
+
+//NOTE: Show full story page
+//NOTE: ROUTE: GET /stories/:id
+router.get("/:id" ,EnsureAuth, async (req, res) => {
+    const storyId = req.params.id
+    try {
+        const story = await StoryModel.findById(storyId).populate("user").lean().exec()
+        console.log(story)
+        if(!story) throw new Error("No story found")
+        res.render("stories/show" , {
+            story
+        })
+        
+    } catch (error) {
+        res.render("error/404")
+    }
+})
+
+
+
+
 //NOTE: Show Add story page
 //NOTE: ROUTE: GET /story/add
 router.get("/add" ,EnsureAuth,  (req, res) => {
