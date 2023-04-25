@@ -6,6 +6,14 @@ import UserModel from "../model/User"
 const router = Express.Router()
 
 
+//NOTE: Show Add story page
+//NOTE: ROUTE: GET /story/add
+router.get("/add" ,EnsureAuth,  (req, res) => {
+    console.log(req.method , req.url)
+    res.render("stories/add")
+})
+
+
 
 //NOTE: Show full story page
 //NOTE: ROUTE: GET /stories/:id
@@ -13,7 +21,6 @@ router.get("/:id" ,EnsureAuth, async (req, res) => {
     const storyId = req.params.id
     try {
         const story = await StoryModel.findById(storyId).populate("user").lean().exec()
-        console.log(story)
         if(!story) throw new Error("No story found")
         res.render("stories/show" , {
             story
@@ -26,12 +33,6 @@ router.get("/:id" ,EnsureAuth, async (req, res) => {
 
 
 
-
-//NOTE: Show Add story page
-//NOTE: ROUTE: GET /story/add
-router.get("/add" ,EnsureAuth,  (req, res) => {
-    res.render("stories/add")
-})
 
 
 //NOTE: Add story 
@@ -52,7 +53,6 @@ router.post("/" ,EnsureAuth ,  async (req, res) => {
 //NOTE: Show public stories 
 //NOTE: ROUTE: GET /storie
 router.get("/" ,EnsureAuth, async (req, res) => {
-    console.log("hitted")
    try {
         const stories = await StoryModel.find({ status:"public" }).populate("user").sort({ createdAt : "desc" }).lean().exec()
         res.render("stories/index",{
@@ -127,9 +127,6 @@ router.get("/user/:id" ,EnsureAuth, async (req, res) => {
     try {
         const user = await UserModel.findById(userId).lean().exec()
        const stories = await StoryModel.find({user:userId , status:"public"}).populate("user").lean().exec()
-       console.log(stories)
-       console.log("////////////////////////////")
-       console.log(user)
        res.render('stories/user' , {
            stories,
            user
