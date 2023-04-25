@@ -2,11 +2,11 @@
   "name": "blazon",
   "version": "1.0.0",
   "description": "share stories with everyone",
-  "main": "server.ts",
+  "main": "./dist/server.js",
   "publish": "dist",
   "scripts": {
     "dev": "nodemon --exec ts-node src/server",
-    "start": "node dist/server.js",
+    "start": "node ./dist/server.js",
     "copy-static-files": "cp -r ./src/public ./dist/public",
     "prestart": "npm run build && npm run copy-static-files",
     "build": "tsc && npm run copy-static-files ",
