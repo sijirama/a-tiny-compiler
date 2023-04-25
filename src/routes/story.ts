@@ -25,7 +25,6 @@ router.get("/:id" ,EnsureAuth, async (req, res) => {
         res.render("stories/show" , {
             story
         })
-        
     } catch (error) {
         res.render("error/404")
     }
@@ -54,7 +53,7 @@ router.post("/" ,EnsureAuth ,  async (req, res) => {
 //NOTE: ROUTE: GET /storie
 router.get("/" ,EnsureAuth, async (req, res) => {
    try {
-        const stories = await StoryModel.find({ status:"public" }).populate("user").sort({ createdAt : "desc" }).lean().exec()
+        const stories = await StoryModel.find({ status:"public" }).populate("user").lean().sort({ createdAt : "desc" }).exec()
         res.render("stories/index",{
             stories
         })
