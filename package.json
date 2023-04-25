@@ -10,7 +10,7 @@
     "copy-static-files": "cp -r ./src/public ./dist/public",
     "prestart": "npm run build && npm run copy-static-files",
     "build": "tsc && npm run copy-static-files ",
-    "deploy": "npm install && npm run build && npm start"
+    "deploy": "npm install && npm run build"
   },
   "repository": {
     "type": "git",
