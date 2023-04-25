@@ -9,8 +9,8 @@
     "copy-static-files": "cp -r ./src/public ./dist",
     "windows-copy-static-files": "xcopy /s /y .\\src\\public .\\dist\\public",
     "start": "node ./dist/server.js",
-    "deploy": "npm install && npm run build && npm run copy-static-files && npm start",
-    "localdeploy":"npm install && npm run build && npm run windows-copy-static-files && npm run start"
+    "deploy": "npm install && npm run build && npm run copy-static-files",
+    "localdeploy": "npm install && npm run build && npm run windows-copy-static-files && npm run start"
   },
   "repository": {
     "type": "git",
