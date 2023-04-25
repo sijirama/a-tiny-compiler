@@ -2,7 +2,8 @@
   "name": "blazon",
   "version": "1.0.0",
   "description": "share stories with everyone",
-  "main": "index.js",
+  "main": "server.js",
+  "publish": "dist",
   "scripts": {
     "dev": "nodemon --exec ts-node src/server",
     "build": "tsc",
