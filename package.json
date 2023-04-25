@@ -10,7 +10,7 @@
     "copy-static-files": "cp -r ./src/public ./dist",
     "windows-copy-static-files": "xcopy /s /y .\\src\\public .\\dist\\public",
     "start": "node ./dist/server.js && echo 'server started'  ",
-    "deploy": "npm install && npm run build && npm run copy-static-files && echo 'npm deploy was executed siji, dw' ",
+    "deploy": "npm install && npm run build && npm run copy-static-files && npm start && echo 'npm deploy was executed siji, dw' ",
     "localdeploy": "npm install && npm run build && npm run windows-copy-static-files && npm run start"
   },
   "repository": {
