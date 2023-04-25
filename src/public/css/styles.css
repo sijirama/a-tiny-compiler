@@ -39,6 +39,10 @@ nav{
     background: black;
 }
 
+.rounded-card{
+    border-radius: 2rem;
+}
+
 .card-image > a > i{
     color: black;
 }
