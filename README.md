@@ -1,7 +1,8 @@
 
 # Blazon
 
-### Blazon is simply a site where different people can share stories, it was originally meant to be a site for sharing tetimoies for my church but got reinvented.
+### Blazon is a site where different people can share stories, it was originally meant to be a site for sharing testimonies for my church but got reinvented.
+#### It is also my first full stack project.
 
 <img src="render/blazondashboard.png" alt="dashboard">
 <img src="render/blazonpublicstories.png" alt="public">
