@@ -138,6 +138,9 @@ func parser(tokens []token) ast {
 }
 
 func walk() node {
+	if pc >= len(pt) {
+		log.Fatal("Unexpected end of input")
+	}
 	token := pt[pc]
 
 	if token.kind == "number" {
@@ -150,6 +153,9 @@ func walk() node {
 
 	if token.kind == "paren" && token.value == "(" {
 		pc++
+		if pc >= len(pt) {
+			log.Fatal("Unexpected end of input after opening parenthesis")
+		}
 		token = pt[pc]
 
 		n := node{
@@ -159,10 +165,148 @@ func walk() node {
 		}
 
 		pc++
-		token = pt[pc]
+		for pc < len(pt) {
+			token = pt[pc]
+			if token.kind == "paren" && token.value == ")" {
+				break
+			}
+			n.params = append(n.params, walk())
+		}
+
+		if pc >= len(pt) || pt[pc].kind != "paren" || pt[pc].value != ")" {
+			log.Fatal("Missing closing parenthesis")
+		}
+
+		pc++
+		return n
+	}
+
+	log.Fatalf("Unexpected token: %v", token)
+	return node{}
+}
+
+type visitor map[string]func(n *node, p node)
+
+func traverser(a ast, v visitor) {
+	traverseNode(node(a), node{}, v) //top level of the ast doesn't have a parent
+}
+
+func traverseArray(a []node, p node, v visitor) {
+	for _, child := range a {
+		traverseNode(child, p, v)
 	}
 }
 
+func traverseNode(node, p node, v visitor) {
+	for k, va := range v {
+		if k == node.kind {
+			va(&node, p)
+		}
+	}
+
+	switch node.kind {
+	case "Program":
+		traverseArray(node.body, node, v)
+		break
+	case "CallExpression":
+		traverseArray(node.params, node, v)
+		break
+	case "NumberLiteral":
+		break
+	default:
+		fmt.Printf("Unknown node kind: %s\n", node.kind)
+	}
+}
+
+func transformer(a ast) ast {
+	nast := ast{
+		kind: "Program",
+		body: []node{},
+	}
+
+	a.context = &nast.body
+
+	traverser(a, map[string]func(n *node, p node){
+		"NumberLiteral": func(n *node, p node) {
+			*p.context = append(*p.context, node{
+				kind:  "NumberExpression",
+				value: n.value,
+			})
+		},
+		"CallExpression": func(n *node, p node) {
+			e := node{
+				kind: "CallExpression",
+				callee: &node{
+					kind: "Identifier",
+					name: n.name,
+				},
+				params: []node{},
+			}
+			n.context = e.arguments
+
+			if p.kind != "CallExpression" {
+				es := node{
+					kind:       "ExpressionStatement",
+					expression: &e,
+				}
+
+				*p.context = append(*p.context, es)
+			} else {
+				*p.context = append(*p.context, e)
+			}
+
+		},
+	})
+
+	return nast
+}
+
+func codeGenerator(n node) string {
+
+	switch n.kind {
+	case "Program":
+		var r []string
+		for _, no := range n.body {
+			r = append(r, codeGenerator(no))
+		}
+		return strings.Join(r, "\n")
+
+	case "ExpressionStatement":
+		return codeGenerator(*n.expression) + ";"
+
+	case "CallExpression":
+		var ra []string
+		c := codeGenerator(*n.callee)
+
+		for _, no := range *n.arguments {
+			ra = append(ra, codeGenerator(no))
+		}
+
+		r := strings.Join(ra, ", ")
+		return c + "(" + r + ")"
+
+	case "Identifier":
+		return n.name
+
+	case "NumberLiteral":
+		return n.value
+
+	default:
+		log.Fatal("err")
+		return ""
+	}
+}
+
+func compiler(input string) string {
+	tokens := tokenizer(input)
+	ast := parser(tokens)
+	nast := transformer(ast)
+	out := codeGenerator(node(nast))
+	return out
+}
+
 func main() {
-	fmt.Println("hello world")
+	program := "(add 10 (subtract 10 6))"
+	out := compiler(program)
+	fmt.Println(out)
 }
