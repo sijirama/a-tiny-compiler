@@ -14,25 +14,15 @@ type token struct {
 func tokenizer(input string) []token {
 	input += "\n"
 	current := 0
-
 	tokens := []token{}
 
 	for current < len([]rune(input)) {
 		char := string([]rune(input)[current])
 
-		if char == "(" {
+		if char == "(" || char == ")" {
 			tokens = append(tokens, token{
 				kind:  "paren",
-				value: "(",
-			})
-			current++
-			continue
-		}
-
-		if char == ")" {
-			tokens = append(tokens, token{
-				kind:  "paren",
-				value: ")",
+				value: char,
 			})
 			current++
 			continue
@@ -45,37 +35,31 @@ func tokenizer(input string) []token {
 
 		if isNumber(char) {
 			value := ""
-
-			for isNumber(char) {
-				value += char
+			for current < len([]rune(input)) && isNumber(string([]rune(input)[current])) {
+				value += string([]rune(input)[current])
 				current++
-				char = string([]rune(input)[current])
 			}
-
 			tokens = append(tokens, token{
 				kind:  "number",
 				value: value,
 			})
-
 			continue
 		}
 
 		if isLetter(char) {
 			value := ""
-
-			for isLetter(char) {
-				value += char
+			for current < len([]rune(input)) && isLetter(string([]rune(input)[current])) {
+				value += string([]rune(input)[current])
 				current++
-				char = string([]rune(input)[current])
 			}
-
 			tokens = append(tokens, token{
 				kind:  "name",
 				value: value,
 			})
+			continue
 		}
 
-		break
+		log.Fatalf("Unknown character: %s", char)
 	}
 
 	return tokens
@@ -125,7 +109,7 @@ func parser(tokens []token) ast {
 	pc = 0
 	pt = tokens
 
-	ast := ast{ // program root node
+	ast := ast{
 		kind: "Program",
 		body: []node{},
 	}
@@ -166,19 +150,14 @@ func walk() node {
 
 		pc++
 		for pc < len(pt) {
-			token = pt[pc]
-			if token.kind == "paren" && token.value == ")" {
-				break
+			if pt[pc].kind == "paren" && pt[pc].value == ")" {
+				pc++ // Move past the closing parenthesis
+				return n
 			}
 			n.params = append(n.params, walk())
 		}
 
-		if pc >= len(pt) || pt[pc].kind != "paren" || pt[pc].value != ")" {
-			log.Fatal("Missing closing parenthesis")
-		}
-
-		pc++
-		return n
+		log.Fatal("Missing closing parenthesis")
 	}
 
 	log.Fatalf("Unexpected token: %v", token)
